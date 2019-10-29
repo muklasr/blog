@@ -14,3 +14,10 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/firstpage', function () {
+    return view('pagewan');
+});
+
+Route::get('/dashboard', 'DashboardController@index');
+Route::get('/add', 'DashboardController@add');
