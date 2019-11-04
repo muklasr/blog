@@ -21,3 +21,6 @@ Route::get('/firstpage', function () {
 
 Route::get('/dashboard', 'DashboardController@index');
 Route::get('/add', 'DashboardController@add');
+
+Route::resource('tes', 'TesController');
+Route::resource('category', 'CategoryController');
