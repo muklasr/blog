@@ -1,4 +1,7 @@
 @extends('base')
+@section('title')
+Kategori
+@endsection
 @section('content')
 <!-- Content Header (Page header) -->
 <section class="content-header">
@@ -9,7 +12,7 @@
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
                     <li class="breadcrumb-item active">Kategori</li>
                 </ol>
             </div>
@@ -25,7 +28,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-title">
-                        <button type="button" class="btn btn-primary float-sm-right" data-toggle="modal" data-target="#modal-default">
+                        <button type="button" class="btn btn-primary float-sm-right" id="btnAdd">
                             Tambah
                         </button>
                     </div>
@@ -48,7 +51,7 @@
                                 <td style="width:50px">{{ $data->id }}</td>
                                 <td>{{ $data->name }}</td>
                                 <td style="width:150px">
-                                    <button class="btn btn-info btn-flat" data-toggle="modal" data-target="#modal-default">
+                                    <button class="btn btn-info btn-flat btnEdit" data-id="{{ $data->id }}">
                                         <span class="icon text-white-50">
                                             <i class="fas fa-pen"></i>
                                         </span>
@@ -84,7 +87,7 @@
     <div class="modal fade" id="modal-default">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form method="POST" action="{{ route('kategoriAdd') }}">
+                <form method="POST" action="{{ route('kategoriAdd') }}" id="form">
                     <div class="modal-header">
                         <h4 class="modal-title">Tambah Kategori</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -93,7 +96,8 @@
                     </div>
                     <div class="modal-body">
                         @csrf
-                        <input class="form-control" name="name" placeholder="Makanan, Minuman, ..">
+                        <input name="id" id="id" hidden>
+                        <input class="form-control" name="name" id="name" placeholder="Makanan, Minuman, .." required>
                     </div>
                     <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
@@ -109,4 +113,30 @@
 
 </section>
 <!-- /.content -->
+@endsection
+@section('js')
+<script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $('.btnEdit').click(function() {
+        var id = $(this).data('id');
+        $.get('/kategori/edit/' + id, function(data) {
+            $('.modal-title').html("Edit Kategori");
+            $('#modal-default').modal('show');
+            $('#id').val(data.id);
+            $('#name').val(data.name);
+        })
+    });
+
+    $('#btnAdd').click(function() {
+        $('.modal-title').html("Tambah Kategori");
+        $('#modal-default').modal('show');
+        $('#id').val("");
+        $('#name').val("");
+    });
+</script>
 @endsection
