@@ -41,6 +41,7 @@ class KategoriController extends Controller
         $kategori = new Kategori;
         $kategori->name = $request->name;
         $kategori->save();
+        return redirect("/kategori")->with('success','Category created successfully');
     }
 
     /**
@@ -89,6 +90,6 @@ class KategoriController extends Controller
         $kategori = Kategori::find($id);
         $kategori->delete();
 
-        return 200;
+        return redirect("/kategori")->with('success','Category deleted successfully');
     }
 }
