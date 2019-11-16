@@ -24,8 +24,15 @@ Route::get('/add', 'DashboardController@add');
 
 Route::get('/kategori', 'KategoriController@index');
 Route::post('/kategori/add','KategoriController@store')->name('kategoriAdd');
+Route::get('/kategori/edit/{id}','KategoriController@edit')->name('kategoriEdit');
+Route::post('/kategori/update','KategoriController@update')->name('kategoriUpdate');
 Route::get('/kategori/delete/{id}','KategoriController@destroy')->name('kategoriDelete');
+Route::get('/add', 'DashboardController@add');
 
 Route::get('/produk', 'ProdukController@index');
+Route::post('/produk/add','ProdukController@store')->name('produkAdd');
+Route::get('/produk/edit/{id}','ProdukController@edit')->name('produkEdit');
+Route::post('/produk/update','ProdukController@update')->name('produkUpdate');
+Route::get('/produk/delete/{id}','ProdukController@destroy')->name('produkDelete');
 
 
