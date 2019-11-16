@@ -38,10 +38,11 @@ class KategoriController extends Controller
     public function store(Request $request)
     {
         //
-        $kategori = new Kategori;
-        $kategori->name = $request->name;
-        $kategori->save();
-        return redirect("/kategori")->with('success','Category created successfully');
+        Kategori::updateOrCreate(
+            ['id' => $request->id],
+            ['name' => $request->name]
+        );
+        return redirect("/kategori")->with('success', 'Kategori berhasil disimpan');
     }
 
     /**
@@ -64,6 +65,9 @@ class KategoriController extends Controller
     public function edit($id)
     {
         //
+        $kategori = Kategori::find($id);
+
+        return response()->json($kategori);
     }
 
     /**
@@ -90,6 +94,6 @@ class KategoriController extends Controller
         $kategori = Kategori::find($id);
         $kategori->delete();
 
-        return redirect("/kategori")->with('success','Category deleted successfully');
+        return redirect("/kategori")->with('success', 'Kategori berhasil dihapus');
     }
 }
