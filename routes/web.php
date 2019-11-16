@@ -22,5 +22,10 @@ Route::get('/firstpage', function () {
 Route::get('/dashboard', 'DashboardController@index');
 Route::get('/add', 'DashboardController@add');
 
-Route::resource('tes', 'TesController');
-Route::resource('category', 'CategoryController');
+Route::get('/kategori', 'KategoriController@index');
+Route::post('/kategori/add','KategoriController@store')->name('kategoriAdd');
+Route::get('/kategori/delete/{id}','KategoriController@destroy')->name('kategoriDelete');
+
+Route::get('/produk', 'ProdukController@index');
+
+
